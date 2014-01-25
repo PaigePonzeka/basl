@@ -1,0 +1,143 @@
+// BaslGreen 3.0.3
+// Bootswatch
+// -----------------------------------------------------
+
+.btn-shadow(@color) {
+  #gradient > .vertical-three-colors(lighten(@color, 8%), @color, 60%, darken(@color, 4%));
+  filter: none;
+ // border-bottom: 1px solid darken(@color, 10%);
+}
+
+
+// Navbar =====================================================================
+
+.navbar {
+  .btn-shadow(@brand-primary);
+  filter: none;
+  border: none;
+  //.box-shadow(0 1px 10px rgba(0, 0, 0, 0.1));
+
+  .navbar-nav > li > a,
+  &-brand {
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+
+.navbar-inverse {
+  #gradient > .vertical-three-colors(lighten(@navbar-inverse-bg, 8%), lighten(@navbar-inverse-bg, 4%), 60%, darken(@navbar-inverse-bg, 2%));
+  filter: none;
+  border-bottom: 1px solid darken(@navbar-inverse-bg, 10%);
+}
+
+// Buttons ====================================================================
+
+.btn {
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+
+  .caret {
+    border-top-color: #fff;
+  }
+}
+
+.btn-default {
+  .btn-shadow(@btn-default-bg);
+
+  &:hover {
+    background: @btn-default-bg;
+  }
+}
+
+.btn-primary {
+  .btn-shadow(@btn-primary-bg);
+
+  &:hover {
+    background: @btn-primary-bg;
+  }
+}
+
+.btn-success {
+  .btn-shadow(@btn-success-bg);
+
+   &:hover {
+    background: @btn-success-bg;
+  }
+}
+
+.btn-info {
+  .btn-shadow(@btn-info-bg);
+
+   &:hover {
+    background: @btn-info-bg;
+  }
+}
+
+.btn-warning {
+  .btn-shadow(@btn-warning-bg);
+
+   &:hover {
+    background: @btn-warning-bg;
+  }
+}
+
+.btn-danger {
+  .btn-shadow(@btn-danger-bg);
+
+   &:hover {
+    background: @btn-danger-bg;
+  }
+}
+
+// Typography =================================================================
+
+// Tables =====================================================================
+
+// Forms ======================================================================
+
+// Navs =======================================================================
+
+.pagination {
+
+  .active > a,
+  .active > a:hover {
+    border-color: #ddd;
+  }
+}
+
+// Indicators =================================================================
+
+// Progress bars ==============================================================
+
+// Containers =================================================================
+
+.panel-default > .panel-heading {
+  .btn-shadow(#d0f5d7); // green
+  //.btn-shadow(#ffffcc); 
+  color: @brand-primary;
+}
+
+.panel-primary,
+.panel-success,
+.panel-warning,
+.panel-danger,
+.panel-info {
+
+  .panel-heading,
+  .panel-title {
+    color: #fff;
+  }
+}
+
+// Styleguide =================================================================
+.brand-color-primary {
+  background: @brand-primary;
+}
+
+.brand-color-secondary {
+  background: @brand-secondary;
+}
+
+.brand-color-support {
+  
+}
