@@ -6,7 +6,7 @@
 
    this.options.wrapperClass = 'sponsors-carousel-wrapper';
    // if you move the folder you have to change this link
-   this.options.imageJson = 'http://paigeponzeka.github.io/basl/site/sponsors.json';
+   this.options.imageJson = 'https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31832/original/sponsors.json?1420773673';
    this.init();
   };
 
