@@ -1,12 +1,12 @@
 (function(){
-  var cssFile = "https://dl.dropboxusercontent.com/u/11254480/sponsors-carousel/sponsors-carousel.css";
+  var cssFile = "http://paigeponzeka.github.io/basl/site/sponsors-carousel.css";
   var Carousel = function(options){
    this.options = $.extend(true, {}, this.defaults, options);
    // you have to change this if you move the files
 
    this.options.wrapperClass = 'sponsors-carousel-wrapper';
    // if you move the folder you have to change this link
-   this.options.imageJson = 'https://dl.dropboxusercontent.com/u/11254480/sponsors-carousel/sponsors.json';
+   this.options.imageJson = 'http://paigeponzeka.github.io/basl/site/sponsors.json';
    this.init();
   };
 
@@ -83,7 +83,6 @@
       this.options.imageJson,
       function(json){
       // we can only initialize the carousel AFTER we've loaded all the image data
-      console.log('json received', json.sponsors);
       // make sure we at least get back results so we don't break things
       if (json && json.sponsors) {
         $.each(json.sponsors, function(){
@@ -117,7 +116,7 @@
   var ContactCardGenerator= function(options){
     this.options = $.extend(true, {}, this.defaults, options);
     this.cards = $('.js-baseball-card');
-    this.cardUrl = 'https://dl.dropboxusercontent.com/u/11254480/sponsors-carousel/card-overlay.png';
+    this.cardUrl = 'http://paigeponzeka.github.io/basl/site/card-overlay.png';
     if (this.cards.length > 0) { // make sure cards exisit before doing anything
       this.init();
     }
