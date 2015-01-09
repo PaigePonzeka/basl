@@ -1,0 +1,31 @@
+This folder contains 3 files. Make sure to update the links to the files in the javascript file when you move the folder to a public host.
+
+[[sponsors.json]] is a json file (http://www.json.org/) containing a list of all the images. It is read into the sponsors-carousel.js which then uses the list to generate the images for the carousel. This is a code language and has to follow a specific structure or it will break the sponsors carousel. IF you make any changes to the file make sure to run the file through a JSON Validator (http://jsonlint.com/) to make sure nothing is broken.
+
+How-to:
+  Add a Sponsor :
+    A sponsor is just a single input on the sponsors.json that looks like this:
+      {
+        "_comment": "you can put anything here, I started it off with the name of the bar for clarity, this currently isn't used in anyway",
+        "imageUrl":  "a link to the image url (the image must be hosted SOMEWHERE) I already uploaded the images to the site and used those links",
+        "linkUrl": "the url to the sponsor"
+      }
+
+  Remove a sponsor:
+    Just delete the entire item containing the bar you want to remove (Remember to also remove the {} surrounding the deleted item
+
+  Note: Please pay attention to the ',' between each sponsor item, a missing or extra ',' will break the JSON
+
+[[sponsors-carousel.js]] is a javascript file (http://en.wikipedia.org/wiki/JavaScript) that also used JQuery (http://jquery.com/). IT loads the JSON, adds the images to the webpage and adds the CSS file to the web page as well. It is heavily commented so it should be fairly easy to follow what is going on. If you want to change what the plugin does you have to edit this file.
+
+[[sponsors-carousel.css]] is the stylesheet for the file. It's added to the webpage by the sponsors-carousel.js you just have to make sure the javascript file has the appropiate link to the CSS file so it can load it. If you want to change how the plugin in works you can just edit the file.
+
+HOW To Add the carousel to the page:
+
+  the page just needs:
+  <ul class="js-sponsors-carousel sponsors-carousel"></ul>
+  <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/11254480/sponsors-carousel/sponsors-carousel.js"></script>
+
+  in the page to run the carousel the plugin will handle the rest,
+
+  Hint: Hit the "Toggle HTML Mode" button to be able to put straight up HTML into the page. (You can toggle it back and this container will still be there it'll just be blank for now)
