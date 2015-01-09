@@ -1,5 +1,5 @@
 (function(){
-  var cssFile = "http://paigeponzeka.github.io/basl/site/sponsors-carousel.css";
+  var cssFile = "http://paigeponzeka.github.io/basl/site/site.css";
   var Carousel = function(options){
    this.options = $.extend(true, {}, this.defaults, options);
    // you have to change this if you move the files
