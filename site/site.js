@@ -1,12 +1,12 @@
 (function(){
-  var cssFile = "http://paigeponzeka.github.io/basl/site/site.css";
+  var cssFile = "site.css";
   var Carousel = function(options){
    this.options = $.extend(true, {}, this.defaults, options);
    // you have to change this if you move the files
 
    this.options.wrapperClass = 'sponsors-carousel-wrapper';
    // if you move the folder you have to change this link
-   this.options.imageJson = 'https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31832/original/sponsors.json?1420773673';
+   this.options.imageJson = 'http://localhost:3000/getleaguesponsors.json';
    this.init();
   };
 
@@ -79,18 +79,23 @@
    */
   Carousel.prototype.loadSponsorsJson = function() {
     var self = this; // assign self to this so I can access Carousel functions in other calls
-    $.getJSON(
-      this.options.imageJson,
-      function(json){
-      // we can only initialize the carousel AFTER we've loaded all the image data
-      // make sure we at least get back results so we don't break things
-      if (json && json.sponsors) {
-        $.each(json.sponsors, function(){
-          self.createAndAppendNewImage(this);
-        });
+     $.ajax( {
+      type: 'GET',
+      datatype: 'jsonp',
+      data: {},
+      crossDomain: 'true',
+      url: this.options.imageJson,
+      error: function(textStatus, errorThrown) {
+      },
+      success: function(json) {
+        if (json) {
+          $.each(json, function(){
+            self.createAndAppendNewImage(this);
+          });
 
-        self.setNumberOfImages();
-        self.initAutoPageChange();
+          self.setNumberOfImages();
+          self.initAutoPageChange();
+        }
       }
     });
   };
@@ -101,8 +106,8 @@
    */
   Carousel.prototype.createAndAppendNewImage = function(sponsor) {
     var sponsorItem = $('<li />');
-    var sponsorLink = $('<a />', {href: sponsor.linkUrl, target: '_blank'});
-    var sponsorImage = $('<img>', {src: sponsor.imageUrl});
+    var sponsorLink = $('<a />', {href: sponsor.url, target: '_blank'});
+    var sponsorImage = $('<img>', {src: sponsor.logo_url});
 
     sponsorLink.html(sponsorImage);
     sponsorItem.html(sponsorLink);

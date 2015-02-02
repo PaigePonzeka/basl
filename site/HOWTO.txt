@@ -24,7 +24,7 @@ HOW To Add the carousel to the page:
 
   the page just needs:
   <ul class="js-sponsors-carousel sponsors-carousel"></ul>
-  <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/11254480/sponsors-carousel/sponsors-carousel.js"></script>
+  <script type="text/javascript" src="https://paigeponzeka.github.io/basl/site/site.js"></script>
 
   in the page to run the carousel the plugin will handle the rest,
 
