@@ -1,5 +1,5 @@
 (function(){
-  var isLocal = true;
+  var isLocal = false;
   var jsonUrl = 'https://ratings-manager.herokuapp.com/getleaguesponsors.json',
       cssFile = 'http://paigeponzeka.github.io/basl/site/site.css',
       cardUrl = 'http://paigeponzeka.github.io/basl/site/card-overlay.png';
@@ -71,7 +71,6 @@
     // change the margin to bring the right img into the frame
     this.$container.css('margin-top', -(this.itemHeight * this.currentPage));;
     this.currentPage++;
-    console.log(this.currentPage);
     $('.js-sponsors-carousel-thumbnails > li').removeClass('active');
     $('.js-thumbnail-page-' + this.currentPage).addClass('active');
     // if we get past the total number of pages go back to the first page
