@@ -1,5 +1,5 @@
 (function(){
-  var isLocal = false; // for testing, should always be false on production
+  var isLocal = false;
   var jsonUrl = 'https://ratings-manager.herokuapp.com/getleaguesponsors.json',
       cssFile = 'http://paigeponzeka.github.io/basl/site/site.css',
       cardUrl = 'http://paigeponzeka.github.io/basl/site/card-overlay.png';
@@ -26,18 +26,13 @@
    * Intializes the plugin
    */
   Carousel.prototype.init = function() {
-    this.$container = $('.container > .sponsors > ul');
-    var sponsorsList = this.$container.clone();
-    this.$container.attr('id', 'sponsors-carousel');
-    this.$container.find('.container > .sponsors h3.font-custom').remove();
+    this.$container = $('.js-sponsors-carousel');
     if (this.$container.length > 0) {
-      this.itemHeight = 200;
+      this.itemHeight = 300;
       this.currentPage = 0;
       this.wrapContainer();
-      this.setNumberOfImages();
-      this.initAutoPageChange();
-      this.$thumbnailContainer = sponsorsList.addClass('sponsors-carousel-thumbnails js-sponsors-carousel-thumbnails cf').attr('id','sponsors-carousel-thumbnails');
-      this.prepocessSponsorsListToThumbnails(this.$thumbnailContainer);
+      this.loadSponsorsJson();
+      this.$thumbnailContainer = $('<ul />', {class: 'sponsors-carousel-thumbnails js-sponsors-carousel-thumbnails cf'});
       this.$container.closest('.js-sponsors-carousel-wrapper').append(this.$thumbnailContainer);
     }
   };
@@ -52,22 +47,6 @@
     this.$carouselWindow = this.$container.closest('.js-sponsors-carousel-window');
     this.$carouselWindow.wrap('<div class="cf ' + this.options.wrapperClass + '"></div>');
     this.$wrapper = this.$container.closest('.js-sponsors-carousel-wrapper');
-  };
-
-  Carousel.prototype.prepocessSponsorsListToThumbnails = function(sponsorsList) {
-    // remove ahref
-    var count = 0;
-    $.each(sponsorsList.find('a'), function() {
-      count++;
-      var listItem = $(this).closest('li');
-      listItem.addClass('js-thumbnail-page-' + count);
-      if (count == 1) {
-        listItem.addClass('active');
-      }
-    });
-    // add page number
-    //
-    return sponsorsList;
   };
 
   /**
@@ -161,7 +140,7 @@
     this.$container.append(sponsorItem);
   };
 
-
+  
 
   /**
    * Contact card Generator Constructor
@@ -186,7 +165,7 @@
     // get the card title, link
     var name = $card.data('name') || 'Player Name',
         title = $card.attr('title') || $card.data('title'),
-        emails = $card.data('email');
+        emails = $card.data('email'); 
     if (emails) { // just make sure there are emails so we don't break shit
       emails = emails.split(',');
     }
@@ -235,14 +214,12 @@
     $("head").append("<link id='sponsors-carousel-css' href='" + cssFile + "' type='text/css' rel='stylesheet' />");
   };
 
-
-
-  $(document).ready(function() {
-      // intializing the carousel
+  // intializing the carousel
   insertCSS();
   var sponsorsCarousel = new Carousel();
   var contactCardGenerator = new ContactCardGenerator();
-  });
+
+
 
 }());
 
