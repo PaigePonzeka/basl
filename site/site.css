@@ -58,6 +58,10 @@
   height: 100%;
 }
 
+.sponsors-carousel-thumbnails {
+  list-style: none;
+}
+
 .sponsors-carousel-thumbnails li {
   float: left;
   width: 25px;
