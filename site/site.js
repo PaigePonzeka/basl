@@ -1,12 +1,24 @@
 (function(){
-  var cssFile = "http://paigeponzeka.github.io/basl/site/site.css";
+  var isLocal = true;
+  var jsonUrl = 'https://ratings-manager.herokuapp.com/getleaguesponsors.json',
+      cssFile = 'http://paigeponzeka.github.io/basl/site/site.css',
+      cardUrl = 'http://paigeponzeka.github.io/basl/site/card-overlay.png';
+
+  // for local testing
+  if (isLocal) {
+    cssFile = 'site.css';
+    cardUrl = 'card-overlay.png';
+    jsonUrl = 'http://localhost:3000/getleaguesponsors.json';
+  }
+
   var Carousel = function(options){
    this.options = $.extend(true, {}, this.defaults, options);
    // you have to change this if you move the files
 
-   this.options.wrapperClass = 'sponsors-carousel-wrapper';
+   this.options.windowClass = 'sponsors-carousel-window js-sponsors-carousel-window';
+   this.options.wrapperClass = 'sponsors-carousel-wrapper js-sponsors-carousel-wrapper';
    // if you move the folder you have to change this link
-   this.options.imageJson = 'http://localhost:3000/getleaguesponsors.json';
+   this.options.imageJson = jsonUrl;
    this.init();
   };
 
@@ -20,6 +32,8 @@
       this.currentPage = 0;
       this.wrapContainer();
       this.loadSponsorsJson();
+      this.$thumbnailContainer = $('<ul />', {class: 'sponsors-carousel-thumbnails js-sponsors-carousel-thumbnails cf'});
+      this.$container.closest('.js-sponsors-carousel-wrapper').append(this.$thumbnailContainer);
     }
   };
 
@@ -28,7 +42,11 @@
     * used mainly for styling
     */
   Carousel.prototype.wrapContainer = function() {
-    this.$container.wrap('<div class="cf ' + this.options.wrapperClass + '"></div>');
+    this.$container.addClass('sponsors-carousel');
+    this.$container.wrap('<div class="cf ' + this.options.windowClass + '"></div>');
+    this.$carouselWindow = this.$container.closest('.js-sponsors-carousel-window');
+    this.$carouselWindow.wrap('<div class="cf ' + this.options.wrapperClass + '"></div>');
+    this.$wrapper = this.$container.closest('.js-sponsors-carousel-wrapper');
   };
 
   /**
@@ -36,7 +54,6 @@
    */
   Carousel.prototype.setNumberOfImages = function() {
     this.pageCount = this.$container.find('> li').length;
-    console.log(this.pageCount);
   };
 
   /**
@@ -54,6 +71,9 @@
     // change the margin to bring the right img into the frame
     this.$container.css('margin-top', -(this.itemHeight * this.currentPage));;
     this.currentPage++;
+    console.log(this.currentPage);
+    $('.js-sponsors-carousel-thumbnails > li').removeClass('active');
+    $('.js-thumbnail-page-' + this.currentPage).addClass('active');
     // if we get past the total number of pages go back to the first page
     if (this.currentPage >= this.pageCount) {
       this.currentPage = 0;
@@ -89,8 +109,10 @@
       },
       success: function(json) {
         if (json) {
+          var count = 0;
           $.each(json, function(){
-            self.createAndAppendNewImage(this);
+            count++;
+            self.createAndAppendNewImage(this.url, this.logo_url, count);
           });
 
           self.setNumberOfImages();
@@ -104,16 +126,22 @@
    * Generates HTML and appends it to the carousel
    * @param  {object} sponsor data containing the image and link to a sponsor
    */
-  Carousel.prototype.createAndAppendNewImage = function(sponsor) {
+  Carousel.prototype.createAndAppendNewImage = function(url, logoUrl, count) {
     var sponsorItem = $('<li />');
-    var sponsorLink = $('<a />', {href: sponsor.url, target: '_blank'});
-    var sponsorImage = $('<img>', {src: sponsor.logo_url});
+    var sponsorLink = $('<a />', {href: url, target: '_blank'});
+    var sponsorImage = $('<img>', {src: logoUrl});
 
-    sponsorLink.html(sponsorImage);
+    sponsorLink.html(sponsorImage.clone());
     sponsorItem.html(sponsorLink);
 
+    var sponsorThumbnailItem = $('<li />', {class: 'js-thumbnail-page-' + count});
+    sponsorThumbnailItem.html(sponsorImage);
+
+    this.$thumbnailContainer.append(sponsorThumbnailItem);
     this.$container.append(sponsorItem);
   };
+
+  
 
   /**
    * Contact card Generator Constructor
@@ -121,7 +149,7 @@
   var ContactCardGenerator= function(options){
     this.options = $.extend(true, {}, this.defaults, options);
     this.cards = $('.js-baseball-card');
-    this.cardUrl = 'http://paigeponzeka.github.io/basl/site/card-overlay.png';
+    this.cardUrl = cardUrl;
     if (this.cards.length > 0) { // make sure cards exisit before doing anything
       this.init();
     }
